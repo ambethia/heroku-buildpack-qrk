@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
+
+# fail fast
+set -o errexit
+set -o pipefail
+
+# parse args
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+cd $CACHE_DIR
+
+git clone --quiet https://github.com/uncle-bob/quarkcoin-cpuminer.git
+cd quarkcoin-cpuminer
+./autogen.sh
+./configure
+make
+
+mv $CACHE_DIR/quarkcoin-cpuminer $BUILD_DIR/quarkcoin-cpuminer
+
+mkdir -p $BUILD_DIR/.profile.d
+echo "export PATH=\$PATH:\$HOME/quarkcoin-cpuminer" > $BUILD_DIR/.profile.d/qrk.sh
