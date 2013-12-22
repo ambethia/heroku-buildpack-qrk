@@ -23,9 +23,9 @@ cd quarkcoin-cpuminer
 
 echo "-----> Installing dependencies"
 
-apt-get install libdb++-dev -y
-apt-get install libminiupnpc-dev -y
-apt-get install libboost-all-dev -y
+sudo apt-get install libdb++-dev -y
+sudo apt-get install libminiupnpc-dev -y
+sudo apt-get install libboost-all-dev -y
 
 echo "-----> Configuring"
 
