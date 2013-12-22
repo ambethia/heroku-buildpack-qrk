@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir>
 
-indent() { sed -u 's/^/       /' }
+indent() {
+  sed -u 's/^/       /'
+}
 
 set -o errexit
 set -o pipefail
