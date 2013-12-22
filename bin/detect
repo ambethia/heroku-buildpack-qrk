@@ -1,11 +1,4 @@
 #!/usr/bin/env bash
 # bin/detect <build-dir>
 
-if [ -f $1/Procfile ]; then
-  grep "minerd" $1/Procfile > /dev/null
-  if [ $? -eq 0 ]; then
-    echo "Quark" && exit 0
-  fi
-else
-  echo "no" && exit 1
-fi
+echo "QRK" && exit 0

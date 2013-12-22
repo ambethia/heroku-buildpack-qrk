@@ -1,12 +1,39 @@
 #!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir>
 
-# fail fast
+indent() { sed -u 's/^/       /' }
+
 set -o errexit
 set -o pipefail
 
-# parse args
 BUILD_DIR=$1
 CACHE_DIR=$2
+BIN_DIR=$(cd $(dirname $0); pwd)
 
-echo "-----> Nada"
+echo "-----> Cloning"
+
+mkdir -p $CACHE_DIR
+
+cd $CACHE_DIR
+
+git clone --quiet https://github.com/uncle-bob/quarkcoin-cpuminer.git
+cd quarkcoin-cpuminer
+
+echo "-----> Installing dependencies"
+
+apt-get install libdb++-dev -y
+apt-get install libminiupnpc-dev -y
+apt-get install libboost-all-dev -y
+
+echo "-----> Configuring"
+
+./autogen.sh | indent
+./configure | indent
+
+echo "-----> Compiling"
+
+make
+
+echo "-----> Installing"
+
+mv $CACHE_DIR/quarkcoin-cpuminer $BUILD_DIR/quarkcoin-cpuminer
