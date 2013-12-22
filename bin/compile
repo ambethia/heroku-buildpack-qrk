@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir>
 
+indent() {
+  sed -u 's/^/       /'
+}
+
 set -o errexit
 set -o pipefail
 
@@ -25,8 +29,8 @@ apt-get install libboost-all-dev -y
 
 echo "-----> Configuring"
 
-./autogen.sh
-./configure
+./autogen.sh | indent
+./configure | indent
 
 echo "-----> Compiling"
 
